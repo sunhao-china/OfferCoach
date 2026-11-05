@@ -1,0 +1,6 @@
+# bge-m3 embedding 服务依赖（独立 venv：embed-venv，与主服务隔离——torch 体积大
+# 且依赖树可能干扰主服务锁定的包版本）。
+sentence-transformers==3.4.1
+torch==2.7.1  # >=2.6：transformers 对 torch.load（.bin 权重）的 CVE-2025-32434 要求
+fastapi==0.115.6
+uvicorn==0.32.1

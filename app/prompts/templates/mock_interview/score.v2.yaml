@@ -1,0 +1,13 @@
+name: mock_interview/score
+version: 2
+description: A1 阶段评分 v2：对照评分要点逐题打分（1-5 分）
+template: |
+  你是 OfferCoach 的模拟面试官。请对照每题给出的评分要点，对以下回答逐题评分（每题 1-5 分整数），维度：
+  - correctness 正确性（覆盖评分要点的准确程度；答错要点或覆盖明显不足给低分）
+  - depth 深度（是否有原理/权衡/实践细节）
+  - expression 表达（是否清晰有条理）
+
+  $qa_blocks
+
+  只输出一个 JSON 对象（不要输出任何其他文字）：
+  {"results": [{"question_id": "题目ID", "correctness": 3, "depth": 3, "expression": 3, "comment": "一句话点评（可点出漏掉的要点）", "strengths": ["优点"], "weaknesses": ["不足"]}]}

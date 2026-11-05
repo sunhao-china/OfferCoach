@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OfferCoach · 求职面试训练助手</title>
+  <link rel="stylesheet" href="/static/style.css?v=3">
+</head>
+<body>
+  <header>
+    <h1>OfferCoach</h1>
+    <nav id="tabs">
+      <button class="tab active" data-page="chat">问答</button>
+      <button class="tab" data-page="interview">模拟面试</button>
+      <button class="tab" data-page="drill">练习</button>
+      <button class="tab" data-page="resume">简历分析</button>
+      <button class="tab" data-page="review">面试复盘</button>
+      <button class="tab" data-page="history">回顾</button>
+      <button class="tab" data-page="sessions">会话</button>
+    </nav>
+    <span id="auth-user"></span>
+    <button id="auth-open" class="logout" hidden>登录</button>
+    <button id="auth-logout" class="logout" hidden>登出</button>
+  </header>
+  <section id="auth-view" hidden>
+    <div class="auth-card">
+      <button id="auth-close" class="auth-close" title="关闭">×</button>
+      <h2>OfferCoach 登录</h2>
+      <p class="auth-hint">注册一个账号开始练习；会话数据只属于你的账号</p>
+      <input type="text" id="auth-username" placeholder="用户名（3-20 字符）" autocomplete="username">
+      <input type="password" id="auth-password" placeholder="密码（8-20 位，含字母和数字）" autocomplete="current-password">
+      <div class="auth-captcha-row">
+        <img id="auth-captcha-img" alt="验证码" title="点击刷新验证码">
+        <input type="text" id="auth-captcha-input" placeholder="验证码" autocomplete="off">
+      </div>
+      <div class="auth-actions">
+        <button id="auth-login">登录</button>
+        <button id="auth-register" class="secondary">注册新账号</button>
+      </div>
+      <p id="auth-error" class="auth-error"></p>
+    </div>
+  </section>
+  <main>
+    <section id="page-chat" class="page active">
+      <div class="page-head">
+        <span class="page-title">知识问答</span>
+        <span class="page-desc">技术题、求职问题，随便问；也可以在这里说「开始模拟面试」</span>
+        <button class="new-session" data-business="chat">新建会话</button>
+      </div>
+      <div class="messages" id="msgs-chat"></div>
+      <form class="composer" data-business="chat">
+        <input type="text" placeholder="输入你的问题…" autocomplete="off">
+        <button type="submit">发送</button>
+      </form>
+    </section>
+
+    <section id="page-interview" class="page">
+      <div class="page-head">
+        <span class="page-title">模拟面试</span>
+        <span class="page-desc">独立面试会话，先说目标岗位开始一轮（如「开始面试，Java 后端」）</span>
+        <button class="new-session" data-business="interview">新建面试</button>
+      </div>
+      <div class="page-head">
+        <select id="interview-difficulty">
+          <option value="medium">中等</option>
+          <option value="entry">入门</option>
+          <option value="hard">困难</option>
+        </select>
+        <input type="text" id="interview-position" placeholder="目标岗位（可选，如 Java 后端）" autocomplete="off" list="position-suggestions">
+        <datalist id="position-suggestions">
+          <option value="Java 后端"></option>
+          <option value="Python"></option>
+          <option value="C"></option>
+          <option value="C++"></option>
+          <option value="C#"></option>
+          <option value="AI Agent"></option>
+          <option value="项目经理"></option>
+        </datalist>
+      </div>
+      <div class="messages" id="msgs-interview"></div>
+      <form class="composer" data-business="interview">
+        <input type="text" placeholder="输入你的回答…" autocomplete="off">
+        <button type="submit">发送</button>
+      </form>
+    </section>
+
+    <section id="page-drill" class="page">
+      <div class="page-head">
+        <span class="page-title">每日练习</span>
+        <span class="page-desc">按计划每天抽一组题，逐题作答后 AI 判分，对照参考要点查漏补缺</span>
+        <span class="drill-stats" id="drill-stats"></span>
+      </div>
+      <div class="drill-plan" id="drill-plan">
+        <input type="text" id="drill-position" placeholder="目标岗位（留空 = 全岗位）" autocomplete="off" list="position-suggestions">
+        <select id="drill-difficulty">
+          <option value="mixed">混合难度</option>
+          <option value="entry">入门</option>
+          <option value="medium">中等</option>
+          <option value="hard">困难</option>
+        </select>
+        <label class="drill-count">每日题数
+          <input type="number" id="drill-count" min="1" max="20" value="5">
+        </label>
+        <button id="drill-save-plan">保存计划</button>
+      </div>
+      <div class="drill-list" id="drill-list">
+        <p class="sessions-empty">先保存练习计划，再开始今天的题单。</p>
+      </div>
+    </section>
+
+    <section id="page-resume" class="page">
+      <div class="page-head">
+        <span class="page-title">简历分析</span>
+        <span class="page-desc">粘贴简历全文或上传 PDF/docx；可附目标岗位 JD 对照分析</span>
+        <button class="new-session" data-business="resume">新建分析</button>
+      </div>
+      <div class="page-head">
+        <input type="file" id="resume-file" accept=".pdf,.docx">
+        <button id="resume-upload">上传并分析</button>
+      </div>
+      <div class="messages" id="msgs-resume"></div>
+      <form class="composer" data-business="resume">
+        <textarea rows="4" placeholder="粘贴简历全文…"></textarea>
+        <textarea id="resume-jd" rows="2" placeholder="目标岗位 JD（可选，粘贴后分析会对照 JD）"></textarea>
+        <button type="submit">分析</button>
+      </form>
+    </section>
+
+    <section id="page-review" class="page">
+      <div class="page-head">
+        <span class="page-title">面试复盘</span>
+        <span class="page-desc">选择一轮已完成的面试，生成逐题点评报告</span>
+      </div>
+      <div class="page-head">
+        <select id="review-target">
+          <option value="">选择要复盘的面试会话…</option>
+        </select>
+        <button id="review-start" disabled>开始复盘</button>
+      </div>
+      <div class="messages" id="msgs-review"></div>
+      <form class="composer" data-business="review">
+        <input type="text" placeholder="复盘报告相关问题可到问答页追问" autocomplete="off">
+        <button type="submit">发送</button>
+      </form>
+    </section>
+
+    <section id="page-history" class="page">
+      <div class="page-head">
+        <span class="page-title">历史回顾</span>
+        <span class="page-desc">已完成的面试、简历分析与复盘报告，点击查看回放</span>
+        <button id="history-refresh" class="new-session">刷新</button>
+      </div>
+      <div class="history-filters" id="history-filters">
+        <button class="chip active" data-filter="all">全部</button>
+        <button class="chip" data-filter="interview">面试</button>
+        <button class="chip" data-filter="resume">简历</button>
+        <button class="chip" data-filter="review">复盘</button>
+      </div>
+      <div class="sessions-list" id="history-list">
+        <p class="sessions-empty">加载中…</p>
+      </div>
+      <div class="history-detail" id="history-detail" hidden>
+        <div class="page-head">
+          <button id="history-back" class="new-session">← 返回列表</button>
+        </div>
+        <div class="messages" id="msgs-history-detail"></div>
+      </div>
+    </section>
+
+    <section id="page-sessions" class="page">
+      <div class="page-head">
+        <span class="page-title">会话</span>
+        <span class="page-desc">继续历史会话，或清理已完成的练习</span>
+        <button id="sessions-refresh" class="new-session">刷新</button>
+      </div>
+      <div class="sessions-list" id="sessions-list">
+        <p class="sessions-empty">还没有会话，去各页开始第一场练习吧。</p>
+      </div>
+    </section>
+  </main>
+  <div id="toast"></div>
+  <script src="/static/app.js?v=4"></script>
+</body>
+</html>

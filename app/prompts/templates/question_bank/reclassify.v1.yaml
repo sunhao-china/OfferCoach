@@ -1,0 +1,23 @@
+name: question_bank/reclassify
+version: 1
+description: 练习页「纠正分类」：根据题面重新识别所属岗位与类别（仅输出 position/category）
+template: |
+  你是 OfferCoach 题库分类助手。根据题目内容，判断这道题属于哪个岗位（position）与哪个类别（category）。
+
+  # 岗位（position）
+  只能从以下键中选一个，原样输出键本身（如 java_backend），不要输出括号里的中文名，不要自创岗位：
+  $positions
+
+  # 类别（category）
+  必须属于所选岗位，从该岗位对应的类别清单中选一个，原样输出键本身：
+  $category_map
+
+  # 常见错误
+  判断依据是题目内容本身，而不是它现在被标成的分类。例如：Spring、Java 并发、JVM 等 Java 技术题属于 java_backend 岗位，绝不能因为题目文字里出现过 Python 字样就归到 python_backend。
+
+  # 输出格式
+  只输出一个 JSON 对象，不要 Markdown 代码块，不要任何多余文字：
+  {"position": "...", "category": "..."}
+
+  题目：
+  $question

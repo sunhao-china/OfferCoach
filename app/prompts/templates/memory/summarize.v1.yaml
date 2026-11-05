@@ -1,0 +1,36 @@
+name: memory/summarize
+version: 1
+description: 会话总结提炼：长期记忆点 + 画像候选（供三层记忆总结器使用）
+template: |
+  你是 OfferCoach 的记忆整理器。基于一场已结束的会话记录，提炼长期记忆与画像候选，用于后续会话的个性化服务。
+
+  会话类型：$session_type
+  会话 ID：$session_id
+  $extra_context
+  会话记录（摘录）：
+  $messages
+
+  只输出一个 JSON 对象（不要输出任何其他文字），结构如下：
+  {
+    "topic": "一句话概括本场会话主题",
+    "importance": 0.0 到 1.0 的数值（纯闲聊/低信息量给低分，有实质训练内容或用户信息给高分）,
+    "summary": {
+      "key_content": [{"point": "本场核心内容要点", "importance": 0.0 到 1.0}],
+      "weak_points": ["用户暴露的短板或错误"],
+      "strengths": ["用户表现出的亮点"],
+      "next_practice_suggestions": ["下次练习建议"]
+    },
+    "profile_candidates": [
+      {
+        "category": "identity 或 skill_strength 或 skill_weakness 或 preference 或 goal",
+        "statement": "一条用户画像陈述（第三人称或名词短语）",
+        "evidence": [{"session_id": "$session_id", "round": 轮次数字或 null, "quote": "会话原文摘录"}]
+      }
+    ]
+  }
+
+  约束：
+  1. quote 必须逐字来自上方会话记录，禁止编造
+  2. profile_candidates 只提炼有明确依据的陈述，没有就给空数组
+  3. evidence 中 session_id 一律填 $session_id
+  4. 所有字段必须出现，空数组写作 []

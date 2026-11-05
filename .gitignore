@@ -1,0 +1,25 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# 本地数据库（含真实账号/会话数据，绝不入仓；seed jsonl 在 data/question_bank/ 内正常入库）
+*.db
+*.db-shm
+*.db-wal
+
+# 本地工具
+.claude/
+
+# 本地环境
+.env
+
+# 面试材料（个人使用，不入仓）
+/简历.md
+/面试要点.md
+
+# JavaGuide 上游源码（scripts/fetch_java_guide.py 可重取，不入仓）
+data/question_bank/vendor/

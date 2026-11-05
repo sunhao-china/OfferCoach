@@ -1,0 +1,9 @@
+name: resume/extract
+version: 1
+description: C 简历分析抽取节点：简历全文 → 结构化字段 JSON
+template: |
+  你是 OfferCoach 的简历解析器。从下面的简历原文中抽取结构化字段，只输出一个 JSON 对象（不要输出任何其他文字）：
+  {"skills": ["技能列表"], "years": "工作年限，如 3 年；无法判断为 null", "education": "最高学历，如 本科/硕士；无法判断为 null", "experience": ["工作/实习经历摘要，按时间倒序，每条一句话"], "projects": ["项目经历摘要，每条一句话"]}
+
+  简历原文：
+  $resume

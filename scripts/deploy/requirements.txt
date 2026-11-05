@@ -1,0 +1,26 @@
+# 服务器运行时依赖锁定（与本地 venv 当前版本一致；cryptography 为 PyMySQL
+# 连 MySQL 8 caching_sha2_password 认证所需）。本地版本变化时同步更新。
+pydantic==2.14.1
+pydantic-settings==2.16.1
+pydantic_core==2.50.1
+PyYAML==6.0.3
+SQLAlchemy==2.1.5
+PyMySQL==1.2.3
+cryptography==50.0.2
+langgraph==1.2.16
+langgraph-checkpoint-sqlite==3.1.2
+langgraph-checkpoint==4.3.0
+langgraph-prebuilt==1.1.1
+langgraph-sdk==0.4.8
+langchain-core==1.6.12
+langchain-deepseek==1.1.1
+langchain-openai==1.7.2
+langchain-protocol==0.0.20
+fastapi==0.156.8
+uvicorn==0.54.0
+python-multipart==0.0.32
+pypdf==6.21.1
+python-docx==1.2.0
+langfuse==5.0.4
+qdrant-client==1.16.2
+APScheduler==3.10.4

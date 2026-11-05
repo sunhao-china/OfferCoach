@@ -1,0 +1,15 @@
+{"id": "r01", "message": "帮我模拟面试，Java 后端，3 年经验", "expected_intent": "mock_interview"}
+{"id": "r02", "message": "帮我看看我的简历", "expected_intent": "resume_analysis"}
+{"id": "r03", "message": "复盘一下昨天的二面", "expected_intent": "interview_review"}
+{"id": "r04", "message": "你好", "expected_intent": "chitchat"}
+{"id": "r05", "message": "在吗", "expected_intent": "chitchat"}
+{"id": "l01", "message": "什么是 TCP 三次握手", "expected_intent": "knowledge_qa"}
+{"id": "l02", "message": "讲讲 HashMap 的底层原理", "expected_intent": "knowledge_qa"}
+{"id": "l03", "message": "我下周要面字节后端，帮我准备一下", "expected_intent": "mock_interview"}
+{"id": "l04", "message": "帮我优化简历上的项目描述", "expected_intent": "resume_analysis"}
+{"id": "l05", "message": "上次面试挂在一面，帮我分析下原因", "expected_intent": "interview_review"}
+{"id": "l06", "message": "谢谢，今天先到这里", "expected_intent": "chitchat"}
+{"id": "l07", "message": "手写一个快速排序", "expected_intent": "knowledge_qa"}
+{"id": "l08", "message": "我们来练习一道系统设计题", "expected_intent": "mock_interview"}
+{"id": "l09", "message": "面试前总是紧张，怎么缓解", "expected_intent": "knowledge_qa"}
+{"id": "l10", "message": "来一场前端面试", "expected_intent": "mock_interview"}
